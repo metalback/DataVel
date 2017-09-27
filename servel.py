@@ -6,9 +6,11 @@ import urllib2
 import re
 import os
 import wget
+import shutil
 
 from lxml import objectify
 from BeautifulSoup import BeautifulSoup
+
 
 def get_xml(config):
     XML = open(config.get("servel", "XML_LOCAL_NAME"), 'r')
@@ -59,7 +61,9 @@ def get_regions_with_id(xml):
     return lista
 
 def generate_directories(regions, config):
+
     base_dir = config.get("directory", "BASE")
+    # shutil.rmtree(base_dir) # periodo de pruebas
     
     if not os.path.exists(base_dir):
         os.makedirs(base_dir)
@@ -73,13 +77,17 @@ def get_padron(communes, regions, config):
     base_url = config.get('servel', 'URL_PDF_BASE')
     base_dir = config.get('directory', 'BASE')
     file = open('lista_padron.sh', 'w')
-    file.write('#!/bin/bash')
+    file.write('#!/bin/bash\n')    
     for commune in communes:
         # print communes[commune]['archivo']
         url_dest = base_dir+'/'+regions[communes[commune]['id_region']]+'/'+commune+'.pdf'
+        
+        url_dest = re.sub("\'", "\\'", url_dest)
+        url_dest = re.sub("\ ", "\\ ", url_dest)
+
         url_pdf = base_url+communes[commune]['archivo']
-        print 'wget --continue '+url_pdf+' -O '+url_dest
-        file.write((u'wget --continue '+url_pdf+' -O '+url_dest).encode('utf-8'))
+        # os.system(('wget --continue '+url_pdf+' -O '+url_dest).encode('utf-8'))
+        file.write((u'wget --continue '+url_pdf+' -O '+url_dest+'\n').encode('utf-8'))
         # wget.download(url_pdf, url_dest, )
     
     
