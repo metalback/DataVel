@@ -7,10 +7,9 @@
 wget --continue ${RUTA_XML} -O ${XML_LOCAL_NAME}
 # Ejecutar Script para generar URL de descarga de PDF
 python servel.py
+# Descarga de PDF
 sh padron.sh
-# # Ejecutar Script para pasar de PDF a Texto
+# # Ejecutar Script para pasar de PDF a CSV
 sh totext.sh
-# # Ejecutar Script para pasar de Texto a CSV
-# sh tocsv.sh
 # # Ejecutar Sctipt para pasar de Texto a Script SQL
 # sh tosql.sh
