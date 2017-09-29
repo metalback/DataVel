@@ -5,7 +5,7 @@ for PDF in $(find ./padron/ | grep ".pdf"); do
         NAME=${PDF%\.pdf}".csv"
         echo $PDF' a '$NAME
         pdftotext -layout $PDF $NAME    
-        # sed -i '/ELECCIONES PRESIDENCIAL/ {N;N;N;d;}' $NAME
-        # sed -i 's/\s\{3,\}/;/g' $NAME
+        sed -i '/ELECCIONES PRESIDENCIAL/ {N;N;N;d;}' $NAME
+        sed -i 's/\s\{3,\}/;/g' $NAME
 done
 unset IFS

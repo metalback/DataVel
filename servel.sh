@@ -10,6 +10,6 @@ python servel.py
 # Descarga de PDF
 sh padron.sh
 # # Ejecutar Script para pasar de PDF a CSV
-sh totext.sh
+sh csv.sh
 # # Ejecutar Sctipt para pasar de Texto a Script SQL
 # sh tosql.sh
